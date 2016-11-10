@@ -1,0 +1,7 @@
+@import "placeholder";
+
+@mixin mkimgbg($src) {
+  background-image: url($src);
+  background-size: contain;
+  @extend %margin-center;
+}

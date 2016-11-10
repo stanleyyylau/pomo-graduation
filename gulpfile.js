@@ -47,7 +47,7 @@ gulp.task('default', ['sass'], function() {
                 baseDir: '.'
             }
     });
-    gulp.watch(SASS_PATH, ['sass']);
+    gulp.watch('sass/**/*.scss', ['sass']);
 });
 
 // Gulp build return minified version of CSS with no source mapping info

@@ -1,0 +1,79 @@
+%margin-center {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+%pitch-p {
+  line-height: 1.6;
+  font-size: 0.4rem;
+  color: #3a3c48;
+}
+
+%client-say{
+  position: absolute;
+  bottom: 0;
+  font-size: 0.34rem;
+  line-height: 1.5;
+  letter-spacing: 0.032rem;
+}
+
+%client-container{
+  position: relative;
+}
+
+%logo-container-margin{
+  margin-top: 0.8rem;
+}
+
+// %row-padding{
+//
+// }
+
+%cell-common{
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 1.066rem;
+  font-size: 0.426rem;
+  padding: 0.2rem 0.2666rem;
+  img{
+    height: 100%;
+    margin-right: 0.133rem;
+  }
+  p{
+    font-size: 0.426rem;
+    color: #a9a9a9;
+    flex: 1;
+  }
+}
+
+%form-cell{
+  display: flex;
+  align-items: center;
+  border: 2px solid #333333;
+  border-radius: 0.133rem;
+  margin-bottom: 0.466rem;
+  height: 1.066rem;
+  box-sizing: border-box;
+  label{
+    height: 100%;
+    margin-right: 0.133rem;
+    img{
+      height: 100%;
+    }
+  }
+  input{
+    background-color: transparent;
+    outline: 0;
+    border: 0;
+    font-size: 0.426rem;
+  }
+}
+
+%apply-options-title{
+  background-size: contain;
+  text-align: center;
+  height: 0.76rem;
+  line-height: 0.76rem;
+}
