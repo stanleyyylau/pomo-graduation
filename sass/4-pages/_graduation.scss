@@ -317,3 +317,113 @@
     margin-right: 0.2rem;
   }
 }
+
+// Below style is for the popup
+.mask {
+  position: fixed;
+  width: 10rem;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.58);
+  top: 0;
+}
+
+.popup{
+  padding: 0 0.733rem;
+  box-sizing: border-box;
+  background-image: url('../imgs/bg_popup.png');
+  width: 7.88rem;
+  height: 8.613rem;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 2.266rem;
+  background-size: contain;
+  .popup-title{
+    color: white;
+    font-size: 0.64rem;
+    height: 1.36rem;
+    line-height: 1.36rem;
+    text-align: center;
+  }
+  .tips-share{
+    font-size: 0.32rem;
+    color: #333333;
+    text-align: center;
+    margin-top: 0.6rem;
+    margin-bottom: 0.5rem;
+  }
+  .share-btn-row{
+    @include mkimgbg('../imgs/bg_share_btn.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 6.4rem;
+    height: 1.333rem;
+    font-size: 0.48rem;
+    color: white;
+    position: relative;
+    .J_share-btn{
+      position: absolute;
+      background-color: #0068b7;
+      width: 6.4rem;
+      height: 1.333rem;
+      outline: 0;
+      border: 0;
+      bottom: 0.3rem;
+      border-radius: 0.133rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .wechat-row{
+    margin-top: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    .wechat-code{
+      height: 2.813rem;
+    }
+    .follow-text{
+      @include mkimgbg('../imgs/bg_share.png');
+      background-repeat: no-repeat;
+      width: 3.2rem;
+      height: 2.24rem;
+      padding: 0.333rem;
+      box-sizing: border-box;
+    }
+    .follow-text strong{
+      display: block;
+    }
+  }
+}
+
+.share-arrow{
+  background-image: url('../imgs/line_share.png');
+  width: 2.426rem;
+  height: 2.32rem;
+  background-repeat: no-repeat;
+  background-size: contain;
+  top: 0;
+  right: 0;
+  top: -1.5rem;
+  right: -0.5rem;
+  position: absolute;
+}
+
+.J_share-btn::before{
+  background-image: url('../imgs/icon_wechat.png');
+  width: 0.693rem;
+  height: 0.693rem;
+  content: " ";
+  display: block;
+  background-size: contain;
+  margin-right: 0.1rem;
+}
+
+.mask{
+  display: none;
+}
+
+.popup{
+  display: none;
+}
