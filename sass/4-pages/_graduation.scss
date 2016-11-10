@@ -427,3 +427,88 @@
 .popup{
   display: none;
 }
+
+
+//for scroll
+.m-dialog {
+  display: none;
+  position: fixed;
+  z-index: 1100;
+  .m-dialog-mark{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .m-scroller{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    .m-scroller-head {
+      position: relative;
+      height: 40px;
+      line-height: 40px;
+      padding: 0 10px;
+      font-size: 14px;
+      overflow: hidden;
+      &:after{
+        width: 100%;
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-bottom: 1px solid #e8e8e8;
+        transform: scaleY(.5);
+        transform-origin: 0 100%;
+      }
+      a{
+        padding: 0 10px;
+        color: #8493a8;
+        &:first-child{
+          float: right;
+        }
+      }
+    }
+    .m-scroller-body {
+      display: flex;
+    }
+  }
+}
+
+
+.m-dialog-mark {
+  position: absolute;
+  background-color: #000;
+  opacity: .5;
+  filter: alpha(opacity=50);
+}
+
+.m-dialog, .m-dialog-mark {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+a, a:hover {
+  text-decoration: none;
+}
+
+
+// .m-scroller-head:after {
+//   width: 100%;
+//   content: "";
+//   position: absolute;
+//   bottom: 0;
+//   left: 0;
+//   border-bottom: 1px solid #e8e8e8;
+//   transform: scaleY(.5);
+//   transform-origin: 0 100%;
+// }
+
+
+.m-scroller-body .scroller-component, .m-scroller-body>div {
+  flex: 1;
+}

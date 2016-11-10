@@ -12,6 +12,8 @@
     <link rel="shortcut icon" type="image/ico" href="favicon.ico"/>
     <script src="../js/libs/flexible.js"></script>
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../js/libs/anima-scroller/scroller.css">
+    <link rel="stylesheet" href="../css/toast/toast.css">
 </head>
 <body>
   <div class="wrapper">
@@ -93,7 +95,7 @@
         </div>
         <div class="form-cell">
           <label for="grad-date"><img src="../imgs/icon_graduation.png" alt="" /></label>
-          <input type="text" name="grad-date" placeholder="毕业时间">
+          <input type="text" name="grad-date" id="J_select_date" placeholder="毕业时间">
         </div>
         <div class="form-cell">
           <label for="ideal-city"><img src="../imgs/icon_world.png" alt="" /></label>
@@ -110,11 +112,11 @@
         </div>
         <div class="form-cell">
           <label for="trial-date"><img src="../imgs/icon_clock.png" alt="" /></label>
-          <input type="text" name="trial-date" placeholder="希望开始实习时间">
+          <input type="text" id="selectIn" name="trial-date" placeholder="希望开始实习时间">
         </div>
         <div class="form-cell">
           <label for="expected-salary"><img src="../imgs/icon_salary.png" alt="" /></label>
-          <input type="text" name="expected-salary" placeholder="期望薪资">
+          <input id="selectExpected" type="text" name="expected-salary" placeholder="期望薪资">
         </div>
         <div class="form-cell-apply-option">
           <div class="bg-title">
@@ -124,11 +126,11 @@
         </div>
         <div class="form-cell">
           <label for="first-option" class="apply-options">1</label>
-          <input type="text" name="first-option" placeholder="第一志愿">
+          <input id="selectFirst" type="text" name="first-option" placeholder="第一志愿">
         </div>
         <div class="form-cell">
           <label for="second-option" class="apply-options">2</label>
-          <input type="text" name="second-option" placeholder="第二志愿">
+          <input id="selectSecond" type="text" name="second-option" placeholder="第二志愿">
         </div>
         <div class="form-cell-apply-option last-option">
           <div class="bg-title-dispatch">
@@ -186,6 +188,86 @@
 
       </div>
     </div>
-  </div>
+
+    <!-- Graduation time select -->
+    <div class="m-dialog J_showScroller">
+      <div class="m-dialog-mark"></div>
+      <div class="m-scroller">
+        <div class="m-scroller-head">
+          <a href="javascript:;" class="J_scrollerConfirm">确定</a>
+          <a href="javascript:;" class="J_scrollerCancel">取消</a>
+        </div>
+        <div class="m-scroller-body">
+            <div id="J_scrollerYear"></div>
+            <div id="J_scrollerMonth"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Intern time select -->
+    <div class="m-dialog J_showScrollerIn">
+      <div class="m-dialog-mark"></div>
+      <div class="m-scroller">
+        <div class="m-scroller-head">
+          <a href="javascript:;" class="J_scrollerConfirmIn">确定</a>
+          <a href="javascript:;" class="J_scrollerCancelIn">取消</a>
+        </div>
+        <div class="m-scroller-body">
+            <div id="J_scrollerYearIn"></div>
+            <div id="J_scrollerMonthIn"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- First job option select -->
+    <div class="m-dialog J_showScrollerFirst">
+      <div class="m-dialog-mark"></div>
+      <div class="m-scroller">
+        <div class="m-scroller-head">
+          <a href="javascript:;" class="J_scrollerConfirmFirst">确定</a>
+          <a href="javascript:;" class="J_scrollerCancelFirst">取消</a>
+        </div>
+        <div class="m-scroller-body">
+            <div id="J_scrollerYearFirst"></div>
+            <div id="J_scrollerMonthFirst"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second job option select -->
+    <div class="m-dialog J_showScrollerSecond">
+      <div class="m-dialog-mark"></div>
+      <div class="m-scroller">
+        <div class="m-scroller-head">
+          <a href="javascript:;" class="J_scrollerConfirmSecond">确定</a>
+          <a href="javascript:;" class="J_scrollerCancelSecond">取消</a>
+        </div>
+        <div class="m-scroller-body">
+            <div id="J_scrollerYearSecond"></div>
+            <div id="J_scrollerMonthSecond"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expected salary -->
+    <div class="m-dialog J_showScrollerExpected">
+      <div class="m-dialog-mark"></div>
+      <div class="m-scroller">
+        <div class="m-scroller-head">
+          <a href="javascript:;" class="J_scrollerConfirmExpected">确定</a>
+          <a href="javascript:;" class="J_scrollerCancelExpected">取消</a>
+        </div>
+        <div class="m-scroller-body">
+            <div id="J_scrollerYearExpected"></div>
+        </div>
+      </div>
+    </div>
+
+  </div> <!--end of wrapper-->
+
+  <script src="../js/libs/zepto/zepto.min.js"></script>
+  <script src="../js/libs/toast/toast.js"></script>
+  <script src="../js/libs/anima-scroller/scroller.js"></script>
+  <script src="../js/graduation.js"></script>
 </body>
 </html>
