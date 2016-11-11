@@ -1,5 +1,6 @@
 // @import "../1-tools/placeholder";
 @import "../1-tools/mixin";
+@import "../1-tools/animate";
 
 .wrapper{
    @extend %margin-center;
@@ -245,6 +246,7 @@
 }
 
 .call-to-action{
+  display: none;
   background-image: url('../imgs/apply_btn.png');
   background-size: contain;
   width: 1.866rem;
@@ -369,7 +371,8 @@
     color: white;
     position: relative;
     .J_share-btn{
-      position: absolute;
+      position: relative;
+      line-height: 1.333rem;
       background-color: #0068b7;
       width: 6.4rem;
       height: 1.333rem;
@@ -377,9 +380,13 @@
       border: 0;
       bottom: 0.3rem;
       border-radius: 0.133rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+      // text-align: center;
+      span{
+        // display: block;
+      }
     }
   }
   .wechat-row{
@@ -395,6 +402,7 @@
       width: 3.2rem;
       height: 2.24rem;
       padding: 0.333rem;
+      font-size: 0.35rem;
       box-sizing: border-box;
     }
     .follow-text strong{
@@ -421,10 +429,14 @@
   background-image: url('../imgs/icon_wechat.png');
   width: 0.693rem;
   height: 0.693rem;
+  line-height: 1.333rem;
+  background-repeat: no-repeat;
   content: " ";
-  display: block;
+  display: inline-block;
   background-size: contain;
   margin-right: 0.1rem;
+  position: relative;
+  top: 0.133rem;
 }
 
 .mask{

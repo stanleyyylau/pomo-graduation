@@ -57,13 +57,16 @@
   height: 1.066rem;
   box-sizing: border-box;
   label{
+    display: block;
     height: 100%;
     margin-right: 0.133rem;
-    img{
-      height: 100%;
-    }
+  }
+  img{
+    height: 100%;
+    display: block;
   }
   input{
+    display: block;
     background-color: transparent;
     outline: 0;
     border: 0;

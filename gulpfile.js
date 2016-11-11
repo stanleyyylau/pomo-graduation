@@ -3,10 +3,12 @@ var uglify = require('gulp-uglify');
 var browserSync = require('browser-sync');
 var concat = require('gulp-concat');
 var minifyCss = require('gulp-minify-css');
-var autoprefixer = require('gulp-autoprefixer');
+// var autoprefixer = require('gulp-autoprefixer');
 var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer');
 
 // File paths
 var CSS_PATH = 'css';
@@ -22,10 +24,10 @@ gulp.task('sass', function () {
 			this.emit('end');
 		}))
 		.pipe(sourcemaps.init())
-		.pipe(autoprefixer())
 		.pipe(sass({
 			outputStyle: 'compressed'
 		}))
+		.pipe(postcss([ autoprefixer({ browsers: ['last 100 versions'] }) ]))
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(CSS_PATH))
 		.pipe(browserSync.stream())

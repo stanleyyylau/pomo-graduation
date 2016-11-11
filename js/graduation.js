@@ -1,5 +1,18 @@
-
-// 以下数据由后端生成并输出到页面上
+// Plugin @RokoCB :: Return the visible amount of px
+// of any element currently in viewport.
+// stackoverflow.com/questions/24768795/
+;(function($, win) {
+  $.fn.inViewport = function(cb) {
+     return this.each(function(i,el){
+       function visPx(){
+         var H = $(this).height(),
+             r = el.getBoundingClientRect(), t=r.top, b=r.bottom;
+         return cb.call(el, Math.max(0, t>0? H-t : (b<H?b:H)));
+       } visPx();
+       $(win).on("resize scroll", visPx);
+     });
+  };
+}($, window));
 
 var companyData = [{
   name: '请选择企业',
@@ -85,6 +98,7 @@ var companyData = [{
   }]
 }];
 
+
 var read = {
   year: [],
   yearIn: [],
@@ -160,7 +174,7 @@ var read = {
     this.city = [];
     for(var i=0; i<cityData.length; i++){
       if(cityData[i].code == comVal){
-         cityData[i].children[0].children.forEach(function(value,index){
+         cityData[i].children.forEach(function(value,index){
           var newObj = {
             name: value.name,
             value: value.code
@@ -562,6 +576,7 @@ var form = {
     return 'pass';
   },
   handleAjax: function(){
+    $( ".J_submit" ).prop( "disabled", true );
     this.tips.change('表单提交中...');
     this.tips.show();
     $.ajax({
@@ -578,10 +593,12 @@ var form = {
           this.tips.change('提交失败');
           this.tips.show();
         }
+        $( ".J_submit" ).prop( "disabled", false );
       }.bind(this),
       error: function(){
         this.tips.change('网络出错');
         this.tips.show();
+        $( ".J_submit" ).prop( "disabled", false );
       }.bind(this)
     });
   },
@@ -635,4 +652,33 @@ $(document).ready(function(){
     $(this).text('点击右上角 即可分享哟');
     $('.share-arrow').show();
   })
+
+  // Animation effects
+  $('.apply-form').inViewport(function(vis){
+    if(vis){
+      return $('.call-to-action').hide();
+    }
+  })
+
+  $('.galanz-container').inViewport(function(vis){
+    if(vis){
+      return $('.call-to-action').show();
+    }
+  })
+
+  $('.once').inViewport(function(vis){
+    if(vis){
+      return $(this).addClass('animated bounceIn');
+    }
+  })
+
+  $('.title-break').inViewport(function(vis){
+    if(vis){
+      return $('.call-to-action').show().addClass('animated slideInDown');
+    }
+  })
+
+
+  //
+
 })
