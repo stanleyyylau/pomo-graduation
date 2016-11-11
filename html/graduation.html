@@ -83,7 +83,7 @@
       <form class="apply-form">
         <div class="form-cell">
           <label for="name"><img src="../imgs/icon_business_man.png" alt="" /></label>
-          <input type="text" name="name" placeholder="姓名">
+          <input id="nameFocus" type="text" name="name" placeholder="姓名">
         </div>
         <div class="form-cell">
           <label for="tel"><img src="../imgs/icon_mobile.png" alt="" /></label>
@@ -95,11 +95,11 @@
         </div>
         <div class="form-cell">
           <label for="grad-date"><img src="../imgs/icon_graduation.png" alt="" /></label>
-          <input type="text" name="grad-date" id="J_select_date" placeholder="毕业时间">
+          <input readonly type="text" name="grad-date" id="J_select_date" placeholder="毕业时间">
         </div>
         <div class="form-cell">
           <label for="ideal-city"><img src="../imgs/icon_world.png" alt="" /></label>
-          <input type="text" name="ideal-city" placeholder="理想工作城市">
+          <input readonly id="selectCity" type="text" name="ideal-city" placeholder="理想工作城市">
         </div>
         <div class="form-cell-multi">
           <div class="title-row">
@@ -112,11 +112,11 @@
         </div>
         <div class="form-cell">
           <label for="trial-date"><img src="../imgs/icon_clock.png" alt="" /></label>
-          <input type="text" id="selectIn" name="trial-date" placeholder="希望开始实习时间">
+          <input readonly type="text" id="selectIn" name="trial-date" placeholder="希望开始实习时间">
         </div>
         <div class="form-cell">
           <label for="expected-salary"><img src="../imgs/icon_salary.png" alt="" /></label>
-          <input id="selectExpected" type="text" name="expected-salary" placeholder="期望薪资">
+          <input readonly id="selectExpected" type="text" name="expected-salary" placeholder="期望薪资">
         </div>
         <div class="form-cell-apply-option">
           <div class="bg-title">
@@ -126,11 +126,11 @@
         </div>
         <div class="form-cell">
           <label for="first-option" class="apply-options">1</label>
-          <input id="selectFirst" type="text" name="first-option" placeholder="第一志愿">
+          <input readonly id="selectFirst" type="text" name="first-option" placeholder="第一志愿">
         </div>
         <div class="form-cell">
           <label for="second-option" class="apply-options">2</label>
-          <input id="selectSecond" type="text" name="second-option" placeholder="第二志愿">
+          <input readonly id="selectSecond" type="text" name="second-option" placeholder="第二志愿">
         </div>
         <div class="form-cell-apply-option last-option">
           <div class="bg-title-dispatch">
@@ -263,8 +263,29 @@
       </div>
     </div>
 
+    <!-- Select city -->
+    <div class="m-dialog J_showScrollerCity">
+      <div class="m-dialog-mark"></div>
+      <div class="m-scroller">
+        <div class="m-scroller-head">
+          <a href="javascript:;" class="J_scrollerConfirmCity">确定</a>
+          <a href="javascript:;" class="J_scrollerCancelCity">取消</a>
+        </div>
+        <div class="m-scroller-body">
+            <div id="J_scrollerYearCity"></div>
+            <div id="J_scrollerMonthCity"></div>
+        </div>
+      </div>
+    </div>
+
   </div> <!--end of wrapper-->
 
+  <script>
+    <!-- 表单接口地址由后端输入, 如-->
+    var backEndUrl = 'https://st-portfolio-on.herokuapp.com/message';
+  </script>
+
+  <script src="../json/cityData.json"></script>
   <script src="../js/libs/zepto/zepto.min.js"></script>
   <script src="../js/libs/toast/toast.js"></script>
   <script src="../js/libs/anima-scroller/scroller.js"></script>

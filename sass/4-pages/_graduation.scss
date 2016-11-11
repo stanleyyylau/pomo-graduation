@@ -124,6 +124,9 @@
   padding: 0.666rem 1.133rem 0 1.133rem;
 }
 .form-cell{
+  &.on-focus{
+    border-color: #eb6877;
+  }
   @extend %form-cell;
   padding: 0.2rem 0.2666rem;
   input{
@@ -201,6 +204,9 @@
 }
 
 .J_submit{
+  &.submitted{
+    background-color: #ccecfb;
+  }
   width: 5.03rem;
   height: 1.44rem;
   border: 0.026rem solid #333333;
@@ -398,6 +404,7 @@
 }
 
 .share-arrow{
+  display: none;
   background-image: url('../imgs/line_share.png');
   width: 2.426rem;
   height: 2.32rem;

@@ -2,6 +2,14 @@
 // 以下数据由后端生成并输出到页面上
 
 var companyData = [{
+  name: '请选择企业',
+  value: 'null',
+  children: [{
+    name: '请选择工作岗位/地址',
+    value: 'null'
+  }]
+  },
+  {
   name: '美的',
   value: 1,
   children: [{
@@ -83,6 +91,8 @@ var read = {
   month: ['一月份','二月份','三月份','四月份','五月份','六月份','七月份','八月份','九月份','十月份','十一月份','十二月份'],
   company: [],
   location: [],
+  province: [],
+  city: [],
   generateYear: function(){
     for(var i = 2016; i > 1900; i--){
       var newOjb = {
@@ -136,15 +146,44 @@ var read = {
         break;
       }
     }
+  },
+  generateProvince: function(){
+    cityData.forEach(function(value,index){
+      var newObj = {
+        name: value.name,
+        value: value.code
+      }
+      this.province.push(newObj);
+    }.bind(this))
+  },
+  generateCity: function(comVal){
+    this.city = [];
+    for(var i=0; i<cityData.length; i++){
+      if(cityData[i].code == comVal){
+         cityData[i].children[0].children.forEach(function(value,index){
+          var newObj = {
+            name: value.name,
+            value: value.code
+          };
+          this.city.push(newObj);
+        }.bind(this))
+        break;
+      }
+    }
+  },
+  init: function(){
+    this.generateYear();
+    this.generateYearIn();
+    this.generateMonth();
+    this.generateCompany();
+    this.generateLocaion(read.company[0].value);
+    this.generateProvince();
+    this.generateCity(read.province[0].value);
   }
 }
 
+read.init();
 
-read.generateYear();
-read.generateYearIn();
-read.generateMonth();
-read.generateCompany();
-read.generateLocaion(read.company[0].value);
 
 
 var options = {
@@ -187,14 +226,14 @@ var optionsExpected = {
   firstMenu: '#J_scrollerYearExpected',
   secondMenu: '#J_scrollerMonthExpected',
   dataFirst: [{
+    name: '不限',
+    value: 333
+  },{
     name: '0-1000',
     value: 111
   },{
     name: '1000以上',
     value: 222
-  },{
-    name: '不限',
-    value: 333
   }], //this is the data you want to pass
   dataSecond: read.month,
   onSelectFirst: null, //if no, we will use the default one
@@ -239,6 +278,9 @@ var optionsFirst = {
       this.selected.second.name = read.location[0].name;
       this.selected.second.value = read.location[0].value;
     }
+    if(this.selected.first.value == 'null'){
+      return null;
+    }
     location = this.selected.second.name;
     return name + '-' + location;
   }
@@ -268,6 +310,48 @@ var optionsSecond = {
     })
     this.selected.second.name = read.location[0].name;
     this.selected.second.value = read.location[0].value;
+  },
+  onSelectSecond: null,
+  refreshOnFirstColChange: null, // true of false
+  handleOutput: function(){
+    var name, location;
+    name = this.selected.first.name;
+    if(!(this.selected.second.name)){
+      this.selected.second.name = read.location[0].name;
+      this.selected.second.value = read.location[0].value;
+    }
+    if(this.selected.first.value == 'null'){
+      return null;
+    }
+    location = this.selected.second.name;
+    return name + '-' + location;
+  }
+}
+
+var optionsCity = {
+  activeDOM: '#selectCity',
+  confirmDOM: '.J_scrollerConfirmCity',
+  cancelDOM: '.J_scrollerCancelCity',
+  wrapperDOM: '.J_showScrollerCity',  // This will be default if no value provided
+  outputDOM: '#selectCity',
+  firstMenu: '#J_scrollerYearCity',
+  secondMenu: '#J_scrollerMonthCity',
+  dataFirst: read.province, //this is the data you want to pass
+  dataSecond: read.city,
+  onSelectFirst: function(ret){
+    // debugger
+    this.selected.first = ret;
+    this.secondScroll.destroy();
+    read.generateCity(this.selected.first.value)
+    this.secondScroll = new Scroller(this.options.secondMenu, {
+      data: read.city,
+      defaultValue: read.city[0].value,
+      onSelect: function(ret) {
+        this.selected.second = ret;
+      }.bind(this)
+    })
+    this.selected.second.name = read.city[0].name;
+    this.selected.second.value = read.city[0].value;
   },
   onSelectSecond: null,
   refreshOnFirstColChange: null, // true of false
@@ -360,8 +444,11 @@ tounickScroll.prototype = {
       var firstCol = this.selected.first.value ? this.selected.first.value : this.selected.first;
           output = firstCol + this.selected.second.value;
     }
-    $(outputDOM).val(output);
     this.cancel();
+    if(output == null){
+      return $(this.options.outputDOM).val('');
+    }
+    $(outputDOM).val(output);
   },
   show: function(){
     var wrapper = this.options.wrapperDOM || '.J_showScroller';
@@ -371,10 +458,181 @@ tounickScroll.prototype = {
 
 var test;
 
+
+var form = {
+  tips: null,
+  content: {
+    name: null,
+    phone: null,
+    school: null,
+    gradTime: null,
+    idealCity: null,
+    experience: null,
+    internStart: null,
+    ExpectedSal: null,
+    stOption: null,
+    rdOption: null,
+    jobArrange: null
+  },
+  $Const: {
+    name : $('.apply-form input[name="name"]'),
+    phone : $('.apply-form input[name="tel"]'),
+    school : $('.apply-form input[name="university"]'),
+    gradTime : $('.apply-form input[name="grad-date"]'),
+    idealCity : $('.apply-form input[name="ideal-city"]'),
+    experience : $('.apply-form textarea[name="experience"]'),
+    internStart : $('.apply-form input[name="trial-date"]'),
+    ExpectedSal : $('.apply-form input[name="expected-salary"]'),
+    stOption : $('.apply-form input[name="first-option"]'),
+    rdOption : $('.apply-form input[name="second-option"]'),
+    jobArrange : $('.dispatch-check-container .on-select')
+  },
+  getContent: function(){
+    var cnt = this.content;
+    cnt.name = this.$Const.name.val();
+    cnt.phone = this.$Const.phone.val();
+    cnt.school = this.$Const.school.val();
+    cnt.gradTime = this.$Const.gradTime.val();
+    cnt.idealCity = this.$Const.idealCity.val();
+    cnt.experience = this.$Const.experience.val();
+    cnt.internStart = this.$Const.internStart.val();
+    cnt.ExpectedSal = this.$Const.ExpectedSal.val();
+    // If value instead of string are needed, get them from tounickScroll instance
+    cnt.stOption = this.$Const.stOption.val();
+    cnt.rdOption = this.$Const.rdOption.val();
+    cnt.jobArrange = this.$Const.jobArrange.text().trim() == '是' ? true : false;
+  },
+  validate: function(){
+    var cnt = this.content;
+    if(!(/[\u4e00-\u9fa5]{2,}/.test(cnt.name))){
+      //return toast or what ever
+      this.tips.change('请完成姓名的填写','fail');
+      this.tips.show();
+      this.$Const.name.focus().closest('.form-cell').addClass('on-focus')
+      .find('input').on('blur', function(){
+        $(this).closest('.form-cell').removeClass('on-focus');
+      });
+      $('.J_submit').text('重新提交');
+      return false;
+    }
+    if(!(/^0?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/.test(cnt.phone))){
+      // phone number
+      this.tips.change('请完成电话的填写','fail');
+      this.tips.show();
+      this.$Const.phone.focus().closest('.form-cell').addClass('on-focus')
+      .find('input').on('blur', function(){
+        $(this).closest('.form-cell').removeClass('on-focus');
+      });
+      $('.J_submit').text('重新提交');
+      return false;
+    }
+    if(!(/[\u4e00-\u9fa5]{2,100}/.test(cnt.school))){
+      // school
+      this.tips.change('请完成学校的填写','fail');
+      this.tips.show();
+      this.$Const.school.focus().closest('.form-cell').addClass('on-focus')
+      .find('input').on('blur', function(){
+        $(this).closest('.form-cell').removeClass('on-focus');
+      });
+      $('.J_submit').text('重新提交');
+      return false;
+    }
+    if(!(cnt.gradTime)){
+      // gradTime
+      this.tips.change('请完成毕业时间的填写','fail');
+      this.tips.show();
+      this.$Const.gradTime.focus().closest('.form-cell').addClass('on-focus')
+      .find('input').on('blur', function(){
+        $(this).closest('.form-cell').removeClass('on-focus');
+      });
+      $('.J_submit').text('重新提交');
+      return false;
+    }
+    if(!(cnt.idealCity)){
+      // ideal city
+      this.tips.change('请完成理想工作的填写','fail');
+      this.tips.show();
+      this.$Const.idealCity.focus().closest('.form-cell').addClass('on-focus')
+      .find('input').on('blur', function(){
+        $(this).closest('.form-cell').removeClass('on-focus');
+      });
+      $('.J_submit').text('重新提交');
+      return false;
+    }
+    return 'pass';
+  },
+  handleAjax: function(){
+    this.tips.change('表单提交中...');
+    this.tips.show();
+    $.ajax({
+      url: backEndUrl,
+      type: 'POST',
+      data: {message: this.content},
+      success: function(data){
+        if(data.status === 200){
+           //提交成功显示弹窗
+           $('.mask').show();
+           $('.popup').show();
+           $('.J_submit').text('已提交').addClass('submitted')
+        }else{
+          this.tips.change('提交失败');
+          this.tips.show();
+        }
+      }.bind(this),
+      error: function(){
+        this.tips.change('网络出错');
+        this.tips.show();
+      }.bind(this)
+    });
+  },
+  handleClick: function(){
+    this.getContent();
+    var isPass = this.validate();
+    if(isPass == 'pass'){
+      //make ajax call
+      this.handleAjax();
+    }
+  },
+  init: function(){
+    this.tips = new Toast({
+        content : 'Hello Toast', //文本
+       // hideDelay : 2000,  //延迟隐藏的时间
+        type : 'success' //类型，默认为none
+    });
+    this.tips.hide();
+    $('.J_submit').on('click', function(){
+      if($(this).hasClass('submitted')){
+        return;
+      }else{
+        form.handleClick()
+      }
+    })
+  }
+}
+
+
+
 $(document).ready(function(){
   test = new tounickScroll(options);
   testIn = new tounickScroll(optionsIn);
   testFirst = new tounickScroll(optionsFirst);
   testSecond = new tounickScroll(optionsSecond);
   testExpected = new tounickScroll(optionsExpected);
+  testCity = new tounickScroll(optionsCity);
+  form.init();
+  $('.dispatch-check-container > div').on('click',function(){
+    if($(this).hasClass('on-select')){
+      return;
+    }else{
+      $(this).toggleClass('on-select').siblings().toggleClass('on-select');
+    }
+  })
+  $('.mask').on('click', function(){
+    $(this).hide();
+    $('.popup').hide();
+  })
+  $('.J_share-btn').on('click', function(){
+    $(this).text('点击右上角 即可分享哟');
+    $('.share-arrow').show();
+  })
 })
