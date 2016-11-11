@@ -197,7 +197,8 @@ var read = {
 }
 
 read.init();
-
+// to set default city
+read.generateCity(440000);
 
 
 var options = {
@@ -384,6 +385,10 @@ var optionsCity = {
     }
     location = this.selected.second.name;
     return name + '-' + location;
+  },
+  defaultValue: {
+    province: 440000,
+    city: 440100
   }
 }
 
@@ -404,6 +409,9 @@ function tounickScroll(options){
   this.init = function(){
     if(this.options.simpleMode){
       return this.firstScroll = this.makeScl(this.options.onSelectFirst, this.options.firstMenu, 'first', this.options.dataFirst);
+    }else if(this.options.defaultValue){
+      this.firstScroll = this.makeScl(this.options.onSelectFirst, this.options.firstMenu, 'first', this.options.dataFirst, this.options.defaultValue.province);
+      this.secondScroll = this.makeScl(this.options.onSelectSecond, this.options.secondMenu, 'second', this.options.dataSecond, this.options.defaultValue.city);
     }else {
       this.firstScroll = this.makeScl(this.options.onSelectFirst, this.options.firstMenu, 'first', this.options.dataFirst);
       this.secondScroll = this.makeScl(this.options.onSelectSecond, this.options.secondMenu, 'second', this.options.dataSecond);
@@ -424,8 +432,9 @@ tounickScroll.prototype = {
     menu: the container of the first colmun
     selectedValue: selected value will be stored to where
     dataCol: the data to pass to Scroller
+    defaultValue: defaultValue to set
   */
-  makeScl: function(which, menu, selectedValue, dataCol){
+  makeScl: function(which, menu, selectedValue, dataCol, defaultVal){
     var defVal;
     if(selectedValue == 'first'){
       this.selected.first.value = this.options.dataFirst[0].value;
@@ -444,11 +453,19 @@ tounickScroll.prototype = {
       }
     };
     var onSelectFn = which ? which : defaultOnSelect;
-    return new Scroller(menu, {
-      data: dataCol,
-      defaultValue: defVal,
-      onSelect: onSelectFn.bind(this)
-    });
+    if(defaultVal){
+      return new Scroller(menu, {
+        data: dataCol,
+        defaultValue: defaultVal,
+        onSelect: onSelectFn.bind(this)
+      });
+    }else{
+      return new Scroller(menu, {
+        data: dataCol,
+        defaultValue: defVal,
+        onSelect: onSelectFn.bind(this)
+      });
+    }
   },
   cancel: function(){
     var wrapper = this.options.wrapperDOM || '.J_showScroller';
@@ -635,6 +652,7 @@ var form = {
 
 
 $(document).ready(function(){
+
   tscroll = new tounickScroll(options);
   tscrollIn = new tounickScroll(optionsIn);
   tscrollFirst = new tounickScroll(optionsFirst);
