@@ -496,6 +496,14 @@
   }
 }
 
+.m-scroller{
+  .scroller-item {
+    white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+  }
+}
+
 
 .m-dialog-mark {
   position: absolute;

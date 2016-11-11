@@ -213,6 +213,9 @@ var options = {
   onSelectFirst: null, //if no, we will use the default one
   onSelectSecond: null,
   refreshOnFirstColChange: null, // true of false
+  handleOutput: function(){
+    return this.selected.first.value + '-' + this.selected.second.value;
+  }
 }
 
 var optionsIn = {
@@ -228,6 +231,9 @@ var optionsIn = {
   onSelectFirst: null, //if no, we will use the default one
   onSelectSecond: null,
   refreshOnFirstColChange: null, // true of false
+  handleOutput: function(){
+    return this.selected.first.value + '-' + this.selected.second.value;
+  }
 }
 
 var optionsExpected = {
@@ -470,7 +476,6 @@ tounickScroll.prototype = {
   }
 }
 
-var test;
 
 
 var form = {
@@ -630,12 +635,12 @@ var form = {
 
 
 $(document).ready(function(){
-  test = new tounickScroll(options);
-  testIn = new tounickScroll(optionsIn);
-  testFirst = new tounickScroll(optionsFirst);
-  testSecond = new tounickScroll(optionsSecond);
-  testExpected = new tounickScroll(optionsExpected);
-  testCity = new tounickScroll(optionsCity);
+  tscroll = new tounickScroll(options);
+  tscrollIn = new tounickScroll(optionsIn);
+  tscrollFirst = new tounickScroll(optionsFirst);
+  tscrollSecond = new tounickScroll(optionsSecond);
+  tscrollExpected = new tounickScroll(optionsExpected);
+  tscrollCity = new tounickScroll(optionsCity);
   form.init();
   $('.dispatch-check-container > div').on('click',function(){
     if($(this).hasClass('on-select')){
