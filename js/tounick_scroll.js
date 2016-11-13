@@ -12,24 +12,27 @@ function tounickScroll(options){
   };
   this.firstScroll = null;
   this.secondScroll = null;
+  // Shortcut to store this.options
+  var OPS = this.options;
   this.init = function(){
-    if(this.options.simpleMode){
-      return this.firstScroll = this.makeScl(this.options.onSelectFirst, this.options.firstMenu, 'first', this.options.dataFirst);
-    }else if(this.options.defaultValue){
-      this.firstScroll = this.makeScl(this.options.onSelectFirst, this.options.firstMenu, 'first', this.options.dataFirst, this.options.defaultValue.first);
-      this.secondScroll = this.makeScl(this.options.onSelectSecond, this.options.secondMenu, 'second', this.options.dataSecond, this.options.defaultValue.second);
+    if(OPS.simpleMode){
+      return this.firstScroll = this.makeScl(OPS.onSelectFirst, OPS.firstMenu, 'first', OPS.dataFirst);
+    }else if(OPS.defaultValue){
+      this.firstScroll = this.makeScl(OPS.onSelectFirst, OPS.firstMenu, 'first', OPS.dataFirst, OPS.defaultValue.first);
+      this.secondScroll = this.makeScl(OPS.onSelectSecond, OPS.secondMenu, 'second', OPS.dataSecond, OPS.defaultValue.second);
     }else {
-      this.firstScroll = this.makeScl(this.options.onSelectFirst, this.options.firstMenu, 'first', this.options.dataFirst);
-      this.secondScroll = this.makeScl(this.options.onSelectSecond, this.options.secondMenu, 'second', this.options.dataSecond);
+      this.firstScroll = this.makeScl(OPS.onSelectFirst, OPS.firstMenu, 'first', OPS.dataFirst);
+      this.secondScroll = this.makeScl(OPS.onSelectSecond, OPS.secondMenu, 'second', OPS.dataSecond);
     }
   };
-  $(this.options.activeDOM).on('click',function(){
+  $(OPS.activeDOM).on('click',function(){
     this.show();
     if(!this.firstScroll) return this.init.call(this);
   }.bind(this));
-  $(this.options.confirmDOM).on('click',this.confirm.bind(this));
-  $(this.options.cancelDOM).on('click',this.cancel.bind(this));
+  $(OPS.confirmDOM).on('click',this.confirm.bind(this));
+  $(OPS.cancelDOM).on('click',this.cancel.bind(this));
 }
+
 
 tounickScroll.prototype = {
   // instaniate new scroll based on input
@@ -41,16 +44,8 @@ tounickScroll.prototype = {
     defaultValue: defaultValue to set
   */
   makeScl: function(which, menu, selectedValue, dataCol, defaultVal){
-    var defVal;
-    if(selectedValue == 'first'){
-      this.selected.first.value = defaultVal != undefined ? defaultVal.value : this.options.dataFirst[0].value;
-      this.selected.first.name = defaultVal != undefined ? defaultVal.name : this.options.dataFirst[0].name;
-      defVal = this.selected.first.value;
-    }else{
-      this.selected.second.value = defaultVal != undefined ? defaultVal.value : this.options.dataSecond[0].value;
-      this.selected.second.name = defaultVal != undefined ? defaultVal.name : this.options.dataSecond[0].name;
-      defVal = this.selected.second.value;
-    }
+    //If no default value is passed, default will be the first of dataset
+    var defVal = this.options.dataFirst[0].value;
     var defaultOnSelect = function(ret){
       if(selectedValue == 'first'){
         this.selected.first = ret;
@@ -81,15 +76,26 @@ tounickScroll.prototype = {
     // debugger;
     var output;
     var outputDOM = this.options.outputDOM || '#J_select_date';
-    if(this.options.handleOutput){
-      output = this.options.handleOutput.call(this);
+    var SLT = this.selected;
+    var OPS = this.options;
+    // if clicking confirm but no scroll, set selected to defaultValue
+    if(SLT.first.value == null && OPS.defaultValue){
+      SLT.first = OPS.defaultValue.first;
+      SLT.second = OPS.defaultValue.second;
+    }else if(SLT.first.value == null){
+      SLT.first = OPS.dataFirst[0];
+      SLT.second = OPS.dataSecond ? OPS.dataSecond[0] : null;
+    }
+    // User can handle output to DOM by passing custom function
+    if(OPS.handleOutput){
+      output = OPS.handleOutput.call(this);
     }else{
-      var firstCol = this.selected.first.value ? this.selected.first.value : this.selected.first;
-          output = firstCol + this.selected.second.value;
+      var firstCol = SLT.first.value ? SLT.first.value : SLT.first;
+          output = firstCol + SLT.second.value;
     }
     this.cancel();
     if(output == null){
-      return $(this.options.outputDOM).val('');
+      return $(OPS.outputDOM).val('');
     }
     $(outputDOM).val(output);
   },

@@ -25,6 +25,9 @@ curMonthObj = read.month.filter(function(item, index){
 })
 curMonthObj = curMonthObj[0];
 
+
+
+
 var options = {
   activeDOM: '#J_select_date',
   confirmDOM: '.J_scrollerConfirm',
@@ -89,7 +92,7 @@ var optionsExpected = {
     name: '1000以上',
     value: 222
   }], //this is the data you want to pass
-  dataSecond: read.month,
+  dataSecond: null,
   onSelectFirst: null, //if no, we will use the default one
   onSelectSecond: null,
   refreshOnFirstColChange: null, // true of false
