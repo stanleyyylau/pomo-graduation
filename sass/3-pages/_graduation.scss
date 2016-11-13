@@ -1,7 +1,3 @@
-// @import "../1-tools/placeholder";
-@import "../1-tools/mixin";
-@import "../1-tools/animate";
-
 .wrapper{
    @extend %margin-center;
    width: 10rem;
@@ -448,61 +444,6 @@
 }
 
 
-//for scroll
-.m-dialog {
-  display: none;
-  position: fixed;
-  z-index: 1100;
-  .m-dialog-mark{
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-  .m-scroller{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    .m-scroller-head {
-      position: relative;
-      height: 40px;
-      line-height: 40px;
-      padding: 0 10px;
-      font-size: 14px;
-      overflow: hidden;
-      &:after{
-        width: 100%;
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        border-bottom: 1px solid #e8e8e8;
-        transform: scaleY(.5);
-        transform-origin: 0 100%;
-      }
-      a{
-        padding: 0 10px;
-        color: #8493a8;
-        &:first-child{
-          float: right;
-        }
-      }
-    }
-    .m-scroller-body {
-      display: flex;
-    }
-  }
-}
-
-.m-scroller{
-  .scroller-item {
-    white-space: nowrap;
-  	overflow: hidden;
-  	text-overflow: ellipsis;
-  }
-}
 
 
 .m-dialog-mark {
