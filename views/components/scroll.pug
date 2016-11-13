@@ -1,0 +1,13 @@
+mixin scroll(className, column)
+  .m-dialog(class='J_showScroller' + className)
+    .m-dialog-mark
+    .m-scroller
+      .m-scroller-head
+        a(class='J_scrollerConfirm' + className, href='javascript:;') 确定
+        a(class='J_scrollerCancel' + className, href='javascript:;') 取消
+      .m-scroller-body
+        if column == 1
+          div(id="J_scrollerYear" + className)
+        else
+          div(id="J_scrollerYear" + className)
+          div(id="J_scrollerMonth" + className)

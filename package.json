@@ -31,6 +31,7 @@
     "autoprefixer": "^6.5.3",
     "browser-sync": "^2.17.5",
     "gulp-postcss": "^6.2.0",
+    "gulp-pug": "^3.1.0",
     "static-server": "^2.0.0"
   }
 }
