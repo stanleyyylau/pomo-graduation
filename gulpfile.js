@@ -67,9 +67,9 @@ gulp.task('views', function buildHTML() {
 gulp.task('build', function() {
 	console.log('building styles...');
 	return gulp.src(SASS_PATH)
-		.pipe(autoprefixer())
 		.pipe(sass({
 			outputStyle: 'compressed'
 		}))
+		.pipe(postcss([ autoprefixer({ browsers: ['last 100 versions'] }) ]))
 		.pipe(gulp.dest(CSS_PATH))
 });
