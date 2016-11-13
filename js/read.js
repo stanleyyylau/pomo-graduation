@@ -93,7 +93,7 @@ var read = {
   city: [],
   generateYear: function(){
     var currentYear = new Date().getFullYear();
-    for(var i = currentYear; i > currentYear - 50; i--){
+    for(var i = currentYear+3; i > currentYear - 50; i--){
       var newOjb = {
         name: i,
         value: i
