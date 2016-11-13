@@ -1,3 +1,4 @@
+include components/scroll
 doctype html
 html
   head
@@ -23,7 +24,7 @@ html
       .thousand-container
         .thousand
           p.addresing
-            | 亲爱的，你知道吗：
+            | 亲爱的，你知道吗:
           p.thousand-pitch
             | 进入社会前的最后一次实习
             br
@@ -67,7 +68,6 @@ html
             | 海信科龙电器股份有限公司是中国最大的白电产品制造企业之一，创立于1984年，总部位于中国广东顺德，主要生产冰箱、空调、冷柜和洗衣机等系列产品。1996年和1999年，公司股票分别在香港和深圳两地发行上市。
       #form-anchor.grab-container
         img.grab-opp(src='../imgs/grab_opp.png', alt='')
-
       //- The form starts from here
       .form-container
         form.apply-form
@@ -154,64 +154,17 @@ html
               | 最新的实习信息
         .share-arrow
       //- Graduation time select
-      .m-dialog.J_showScroller
-        .m-dialog-mark
-        .m-scroller
-          .m-scroller-head
-            a.J_scrollerConfirm(href='javascript:;') 确定
-            a.J_scrollerCancel(href='javascript:;') 取消
-          .m-scroller-body
-            #J_scrollerYear
-            #J_scrollerMonth
+      +scroll('', 2)
       //- Intern time select
-      .m-dialog.J_showScrollerIn
-        .m-dialog-mark
-        .m-scroller
-          .m-scroller-head
-            a.J_scrollerConfirmIn(href='javascript:;') 确定
-            a.J_scrollerCancelIn(href='javascript:;') 取消
-          .m-scroller-body
-            #J_scrollerYearIn
-            #J_scrollerMonthIn
+      +scroll('In', 2)
       //- First job option select
-      .m-dialog.J_showScrollerFirst
-        .m-dialog-mark
-        .m-scroller
-          .m-scroller-head
-            a.J_scrollerConfirmFirst(href='javascript:;') 确定
-            a.J_scrollerCancelFirst(href='javascript:;') 取消
-          .m-scroller-body
-            #J_scrollerYearFirst
-            #J_scrollerMonthFirst
-      //- Second job option select
-      .m-dialog.J_showScrollerSecond
-        .m-dialog-mark
-        .m-scroller
-          .m-scroller-head
-            a.J_scrollerConfirmSecond(href='javascript:;') 确定
-            a.J_scrollerCancelSecond(href='javascript:;') 取消
-          .m-scroller-body
-            #J_scrollerYearSecond
-            #J_scrollerMonthSecond
+      +scroll('First', 2)
+      //- Second job option select\
+      +scroll('Second', 2)
       //- Expected salary
-      .m-dialog.J_showScrollerExpected
-        .m-dialog-mark
-        .m-scroller
-          .m-scroller-head
-            a.J_scrollerConfirmExpected(href='javascript:;') 确定
-            a.J_scrollerCancelExpected(href='javascript:;') 取消
-          .m-scroller-body
-            #J_scrollerYearExpected
+      +scroll('Expected', 1)
       //- Select city
-      .m-dialog.J_showScrollerCity
-        .m-dialog-mark
-        .m-scroller
-          .m-scroller-head
-            a.J_scrollerConfirmCity(href='javascript:;') 确定
-            a.J_scrollerCancelCity(href='javascript:;') 取消
-          .m-scroller-body
-            #J_scrollerYearCity
-            #J_scrollerMonthCity
+      +scroll('City', 2)
     //- end of wrapper
     if gradP.backEndUrl
       script.
