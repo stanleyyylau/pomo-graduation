@@ -210,7 +210,7 @@ var form = {
     }
     return 'pass';
   },
-  showFailMsg(msg, item){
+  showFailMsg: function(msg, item){
     this.tips.change(msg,'fail');
     this.tips.show();
     this.$Const[item].focus().closest('.form-cell').addClass('on-focus')
