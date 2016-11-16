@@ -173,7 +173,7 @@ var form = {
     ExpectedSal : $('.apply-form input[name="expected-salary"]'),
     stOption : $('.apply-form input[name="first-option"]'),
     rdOption : $('.apply-form input[name="second-option"]'),
-    jobArrange : $('.dispatch-check-container .on-select')
+    jobArrange : $('.dispatch-check-container')
   },
   getContent: function(){
     var cnt = this.content;
@@ -189,7 +189,7 @@ var form = {
     // If value instead of string are needed, get them from tounickScroll instance
     cnt.stOption = CST.stOption.val();
     cnt.rdOption = CST.rdOption.val();
-    cnt.jobArrange = CST.jobArrange.text().trim() == '是' ? true : false;
+    cnt.jobArrange = CST.jobArrange.find('.on-select').text().trim() == '是' ? true : false;
   },
   validate: function(){
     var cnt = this.content;
@@ -222,13 +222,33 @@ var form = {
   },
   handleAjax: function(){
     // prevent multiple clicking of submit button
+    var options, content, cnt = this.content;
+    // 这里可以修改表单数据发送的字段, 把注释去掉启用， 没有就使用默认的配置
+    /*
+    var options = {
+      name: cnt.name,      //姓名
+      phone: cnt.phone,    //手机号码
+      school: cnt.school,    //毕业学校
+      graduationTime: cnt.gradTime,  //毕业时间
+      idealCity: cnt.idealCity,     //理想城市
+      experience: cnt.experience,    //工作经验
+      internStart: cnt.internStart,  //实习开始
+      ExpectedSal: cnt.ExpectedSal,   //期望薪资
+      stOption: cnt.stOption,   //第一志愿
+      rdOption: cnt.rdOption,   //第二志愿
+      weirdName: cnt.jobArrange   //是否服从分配
+    };
+    */
+
+    content = options || { message: this.content };
+
     $( ".J_submit" ).prop( "disabled", true );
     this.tips.change('表单提交中...');
     this.tips.show();
     $.ajax({
       url: backEndUrl,
       type: 'POST',
-      data: {message: this.content},
+      data: content,
       success: function(data){
         if(data.status === 200){
            // Show popup
